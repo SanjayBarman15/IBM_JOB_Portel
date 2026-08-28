@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,7 +9,7 @@ import {
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { Loader2 } from "lucide-react";
+import { Loader2, UploadCloud, User, Mail, Phone, FileText, Sparkles } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { USER_API_END_POINT } from "@/utils/constant";
@@ -22,13 +22,26 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
   const dispatch = useDispatch();
 
   const [input, setInput] = useState({
-    fullname: user?.fullname || "",
-    email: user?.email || "",
-    phoneNumber: user?.phoneNumber || "",
-    bio: user?.profile?.bio || "",
-    skills: user?.profile?.skills?.join(", ") || "",
-    file: user?.profile?.resume || "",
+    fullname: "",
+    email: "",
+    phoneNumber: "",
+    bio: "",
+    skills: "",
+    file: null,
   });
+
+  useEffect(() => {
+    if (user) {
+      setInput({
+        fullname: user?.fullname || "",
+        email: user?.email || "",
+        phoneNumber: user?.phoneNumber || "",
+        bio: user?.profile?.bio || "",
+        skills: user?.profile?.skills?.join(", ") || "",
+        file: null,
+      });
+    }
+  }, [user, open]);
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -64,8 +77,8 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
       );
       if (res.data.success) {
         dispatch(setUser(res.data.user));
-        toast.success(res.data.message);
-        setOpen(); // Call setOpen without arguments to close the dialog and trigger data refresh
+        toast.success(res.data.message || "Profile updated successfully");
+        setOpen(false);
       } else {
         toast.error("Failed to update profile");
       }
@@ -82,82 +95,85 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="bg-white sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Update Profile</DialogTitle>
+      <DialogContent className="bg-white sm:max-w-[480px] p-6 rounded-2xl border border-zinc-200 shadow-2xl">
+        <DialogHeader className="space-y-1 pb-3 border-b border-zinc-100">
+          <DialogTitle className="text-xl font-bold text-zinc-950 font-display">Update Profile Details</DialogTitle>
+          <p className="text-xs text-zinc-500">Edit your public information and career resume.</p>
         </DialogHeader>
-        <form onSubmit={submitHandler}>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="fullname" className="text-right">
-                Name
-              </Label>
+
+        <form onSubmit={submitHandler} className="space-y-4 pt-2">
+          <div className="space-y-3.5">
+            <div>
+              <Label htmlFor="fullname" className="text-xs font-semibold text-zinc-700">Full Name</Label>
               <Input
                 id="fullname"
                 name="fullname"
                 type="text"
                 value={input.fullname}
                 onChange={changeEventHandler}
-                placeholder="Your full name"
-                className="col-span-3"
+                placeholder="e.g. Alex Vance"
+                className="mt-1"
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="email" className="text-right">
-                Email
-              </Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                value={input.email}
-                onChange={changeEventHandler}
-                placeholder="your.email@example.com"
-                className="col-span-3"
-              />
+
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <Label htmlFor="email" className="text-xs font-semibold text-zinc-700">Email Address</Label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={input.email}
+                  onChange={changeEventHandler}
+                  placeholder="alex@example.com"
+                  className="mt-1"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="phoneNumber" className="text-xs font-semibold text-zinc-700">Phone</Label>
+                <Input
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  type="text"
+                  value={input.phoneNumber}
+                  onChange={changeEventHandler}
+                  placeholder="+1 234 567 890"
+                  className="mt-1"
+                />
+              </div>
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="phoneNumber" className="text-right">
-                Number
-              </Label>
-              <Input
-                id="phoneNumber"
-                name="phoneNumber"
-                value={input.phoneNumber}
-                onChange={changeEventHandler}
-                placeholder="e.g. 9876543210"
-                className="col-span-3"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="bio" className="text-right">
-                Bio
-              </Label>
+
+            <div>
+              <Label htmlFor="bio" className="text-xs font-semibold text-zinc-700">Professional Bio</Label>
               <Input
                 id="bio"
                 name="bio"
+                type="text"
                 value={input.bio}
                 onChange={changeEventHandler}
-                placeholder="A short bio about yourself"
-                className="col-span-3"
+                placeholder="Senior Full Stack Engineer passionate about distributed systems"
+                className="mt-1"
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="skills" className="text-right">
-                Skills
+
+            <div>
+              <Label htmlFor="skills" className="text-xs font-semibold text-zinc-700">
+                Skills & Tech Stack <span className="text-zinc-400 font-normal">(comma separated)</span>
               </Label>
               <Input
                 id="skills"
                 name="skills"
                 value={input.skills}
                 onChange={changeEventHandler}
-                placeholder="e.g. React, Node.js, Python, Figma (comma separated)"
-                className="col-span-3"
+                placeholder="React, TypeScript, Node.js, GraphQL, Docker"
+                className="mt-1"
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="file" className="text-right">
-                Resume
+
+            <div>
+              <Label htmlFor="file" className="text-xs font-semibold text-zinc-700">
+                Update Resume <span className="text-zinc-400 font-normal">(PDF format)</span>
               </Label>
               <Input
                 id="file"
@@ -165,21 +181,33 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                 type="file"
                 accept="application/pdf"
                 onChange={fileChangeHandler}
-                className="col-span-3"
+                className="mt-1 file:mr-3 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-zinc-100 file:text-zinc-800 hover:file:bg-zinc-200 cursor-pointer"
               />
             </div>
           </div>
-          <DialogFooter>
-            {loading ? (
-              <Button className="w-full my-4">
-                {" "}
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait{" "}
-              </Button>
-            ) : (
-              <Button type="submit" className="w-full my-4">
-                Update
-              </Button>
-            )}
+
+          <DialogFooter className="pt-4 border-t border-zinc-100 flex items-center gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setOpen(false)}
+              className="w-full sm:w-auto"
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              disabled={loading}
+              className="w-full sm:w-auto bg-zinc-950 text-white hover:bg-zinc-800"
+            >
+              {loading ? (
+                <span className="flex items-center gap-2">
+                  <Loader2 className="w-4 h-4 animate-spin" /> Saving Changes...
+                </span>
+              ) : (
+                "Save Changes"
+              )}
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
