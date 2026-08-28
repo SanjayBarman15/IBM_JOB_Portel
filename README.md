@@ -26,6 +26,7 @@
 [⚡ Quick Start](#-installation--setup) •
 [📡 API Reference](#-rest-api-documentation) •
 [🗺️ Routes](#️-frontend-routes-directory) •
+[👥 Team](#-project-team--contributors) •
 [🚀 Deployment](#-deployment-guide)
 
 ---
@@ -384,6 +385,16 @@ Base URL: `http://localhost:8000/api/v1`
 
 ---
 
+## 👥 Project Team & Contributors
+
+| Student Name | Enrollment Number | Program & Batch | University / Institution |
+| :--- | :--- | :--- | :--- |
+| 🎓 **Md Ayan Qurashi** | `ADTU/0/2025-27/MCAM030` | MCA (2025–2027) | Assam Down Town University (ADTU) |
+| 🎓 **Sumitra Devi** | `ADTU/0/2025-27/MCAM029` | MCA (2025–2027) | Assam Down Town University (ADTU) |
+| 🎓 **Sanjay Barman** | `ADTU/0/2025-27/MCAM027` | MCA (2025–2027) | Assam Down Town University (ADTU) |
+
+---
+
 ## 🤝 Contributing
 
 Contributions make the open-source community an incredible place to learn, inspire, and create. Any contributions you make are **greatly appreciated**!
@@ -401,5 +412,5 @@ Contributions make the open-source community an incredible place to learn, inspi
 This project is licensed under the **ISC License**. See the `LICENSE` file for more information.
 
 <div align="center">
-  <sub>Built with ❤️ by Sanjay Barman and contributors. If you found this project helpful, give it a ⭐️ on GitHub!</sub>
+  <sub>Built with ❤️ by <strong>Md Ayan Qurashi</strong>, <strong>Sumitra Devi</strong>, and <strong>Sanjay Barman</strong> (ADTU). If you found this project helpful, give it a ⭐️ on GitHub!</sub>
 </div>
