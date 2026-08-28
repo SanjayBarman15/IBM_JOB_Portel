@@ -6,6 +6,16 @@
   <strong>A modern, full-stack career platform connecting ambitious talent with visionary recruiters.</strong>
 </p>
 
+### 🎓 Project Team (ADTU - MCA 2025–2027)
+
+| Student Name | ID / Roll | Enrollment Number |
+| :--- | :---: | :--- |
+| **Md Ayan Qurashi** | `FS 141` | `ADTU/0/2025-27/MCAM030` |
+| **Sumitra Devi** | `FS 142` | `ADTU/0/2025-27/MCAM029` |
+| **Sanjay Barman** | `FS 131` | `ADTU/0/2025-27/MCAM027` |
+
+<br/>
+
 [![React](https://img.shields.io/badge/React-18.2-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-5.2-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
@@ -387,11 +397,11 @@ Base URL: `http://localhost:8000/api/v1`
 
 ## 👥 Project Team & Contributors
 
-| Student Name | Enrollment Number | Program & Batch | University / Institution |
-| :--- | :--- | :--- | :--- |
-| 🎓 **Md Ayan Qurashi** | `ADTU/0/2025-27/MCAM030` | MCA (2025–2027) | Assam Down Town University (ADTU) |
-| 🎓 **Sumitra Devi** | `ADTU/0/2025-27/MCAM029` | MCA (2025–2027) | Assam Down Town University (ADTU) |
-| 🎓 **Sanjay Barman** | `ADTU/0/2025-27/MCAM027` | MCA (2025–2027) | Assam Down Town University (ADTU) |
+| Student Name | ID / Roll | Enrollment Number | Program & Batch | University / Institution |
+| :--- | :---: | :--- | :--- | :--- |
+| 🎓 **Md Ayan Qurashi** | `FS 141` | `ADTU/0/2025-27/MCAM030` | MCA (2025–2027) | Assam Down Town University (ADTU) |
+| 🎓 **Sumitra Devi** | `FS 142` | `ADTU/0/2025-27/MCAM029` | MCA (2025–2027) | Assam Down Town University (ADTU) |
+| 🎓 **Sanjay Barman** | `FS 131` | `ADTU/0/2025-27/MCAM027` | MCA (2025–2027) | Assam Down Town University (ADTU) |
 
 ---
 
