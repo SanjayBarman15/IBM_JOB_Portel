@@ -2,141 +2,86 @@ import React from 'react'
 import LatestJobCards from './LatestJobCards';
 import { useSelector } from 'react-redux'; 
 import { motion } from 'framer-motion';
-import { Briefcase } from 'lucide-react';
+import { Briefcase, ArrowRight, Sparkles } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from './ui/button';
 
 const LatestJobs = () => {
-    const {allJobs} = useSelector(store=>store.job);
+    const { allJobs } = useSelector(store => store.job);
+    const navigate = useNavigate();
 
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.3,
-                delayChildren: 0.2,
-            }
-        }
-    };
-
-    const titleVariants = {
-        hidden: { opacity: 0, scale: 0.5 },
-        visible: {
-            opacity: 1,
-            scale: 1,
-            transition: {
-                type: 'spring',
-                damping: 10,
-                stiffness: 100
+                staggerChildren: 0.1,
+                delayChildren: 0.1,
             }
         }
     };
 
     const cardVariants = {
-        hidden: { opacity: 0, y: 50 },
+        hidden: { opacity: 0, y: 20 },
         visible: {
             opacity: 1,
             y: 0,
             transition: {
-                type: 'spring',
-                damping: 12,
-                stiffness: 100
-            }
-        }
-    };
-
-    const iconVariants = {
-        hidden: { rotate: -180, opacity: 0 },
-        visible: {
-            rotate: 0,
-            opacity: 1,
-            transition: {
-                type: 'spring',
-                damping: 10,
-                stiffness: 100
+                duration: 0.4,
+                ease: "easeOut"
             }
         }
     };
 
     return (
-        <motion.div 
-            initial="hidden"
-            animate="visible"
-            variants={containerVariants}
-            className='max-w-7xl mx-auto my-16 px-4 sm:my-24'
-        >
-            <motion.div className='text-center mb-12'>
-                <motion.div
-                    variants={iconVariants}
-                    whileHover={{ scale: 1.1, rotate: 360 }}
-                    transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                    className='inline-block p-3 bg-green-100 rounded-full mb-4'
+        <section className='max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8'>
+            <div className='flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4'>
+                <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200 text-xs font-semibold text-zinc-900 mb-3">
+                        <Sparkles className="w-3.5 h-3.5" />
+                        <span>Curated Opportunities</span>
+                    </div>
+                    <h2 className='text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-950 font-display'>
+                        Featured & Recent Openings
+                    </h2>
+                    <p className='mt-2 text-sm sm:text-base text-zinc-500 max-w-xl'>
+                        Explore verified engineering, design, and leadership roles tailored for your background.
+                    </p>
+                </div>
+
+                <Button 
+                    onClick={() => navigate('/jobs')} 
+                    variant="outline" 
+                    className="self-start md:self-auto flex items-center gap-2 border-zinc-200 hover:border-zinc-950"
                 >
-                    <Briefcase className='w-10 h-10 text-green-500' />
-                </motion.div>
-                <motion.h1 
-                    variants={titleVariants}
-                    className='text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 mb-4'
-                >
-                    <motion.span
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5, duration: 0.5 }}
-                        className='text-green-500'
-                    >
-                        Latest & Top 
-                    </motion.span>{" "}
-                    Job Openings
-                </motion.h1>
-                <motion.p 
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1, duration: 1 }}
-                    className='mt-4 text-gray-600 max-w-2xl mx-auto'
-                >
-                    Explore the most recent and exciting job opportunities tailored for you.
-                </motion.p>
-            </motion.div>
+                    <span>View All Jobs</span>
+                    <ArrowRight className="w-4 h-4" />
+                </Button>
+            </div>
+
             <motion.div 
                 variants={containerVariants}
-                className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 my-8'
+                initial="hidden"
+                animate="visible"
+                className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'
             >
                 {allJobs.length === 0 ? (
-                    <motion.div 
-                        variants={cardVariants}
-                        className='col-span-full text-center text-gray-500 py-12'
-                    >
-                        No Jobs Available
-                    </motion.div>
+                    <div className='col-span-full text-center py-16 bg-white rounded-2xl border border-dashed border-zinc-300'>
+                        <div className="w-12 h-12 rounded-2xl bg-zinc-100 text-zinc-400 mx-auto flex items-center justify-center mb-3">
+                            <Briefcase className="w-6 h-6" />
+                        </div>
+                        <h3 className="text-base font-semibold text-zinc-900">No Job Openings Available</h3>
+                        <p className="text-xs text-zinc-500 mt-1">Check back later or explore other categories.</p>
+                    </div>
                 ) : (
-                    <>
-                        {allJobs.slice(0, 6).map((job, index) => (
-                            <motion.div 
-                                key={job._id} 
-                                variants={cardVariants}
-                                whileHover={{ 
-                                    scale: 1.05, 
-                                    boxShadow: "0px 10px 30px rgba(0,0,0,0.1)",
-                                    transition: { type: "spring", stiffness: 300, damping: 10 }
-                                }}
-                            >
-                                <LatestJobCards job={job}/>
-                            </motion.div>
-                        ))}
-                        {allJobs.length < 6 && (
-                            [...Array(6 - allJobs.length)].map((_, index) => (
-                                <motion.div 
-                                    key={`empty-${index}`} 
-                                    variants={cardVariants}
-                                    className="hidden sm:block"
-                                >
-                                    {/* Empty div to maintain grid layout */}
-                                </motion.div>
-                            ))
-                        )}
-                    </>
+                    allJobs.slice(0, 6).map((job) => (
+                        <motion.div key={job._id} variants={cardVariants}>
+                            <LatestJobCards job={job}/>
+                        </motion.div>
+                    ))
                 )}
             </motion.div>
-        </motion.div>
+        </section>
     )
 }
 
